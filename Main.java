@@ -1,6 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("hi");
+        Player p1 = new Player();
+        Player p2 = new Player();
+        String[][] x = Player.nameList;
+
     }
 
 }
