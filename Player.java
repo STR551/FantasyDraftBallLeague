@@ -1,9 +1,8 @@
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Player {
@@ -16,6 +15,15 @@ public class Player {
   int age = 10;
   int[] skills = new int[2]; // off def 
   int[] potentials = new int[2];
+
+  LinkedList<String> offPossesions = new LinkedList<String>();
+  LinkedList<String> defPossesions = new LinkedList<String>();
+
+  int offPlays = 0;
+  int pointsScored = 0;
+  int defPlays = 0;
+  int defStops = 0;
+
 
   public static void main(String[] args) {
   }
