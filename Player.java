@@ -25,8 +25,22 @@ public class Player {
     idCount += 1;
     name = nameList[0][r.nextInt(nameList[0].length)]+" "+nameList[1][r.nextInt(nameList[0].length)];
     for (int i = 0; i < skills.length;i++){
-      skills[i] = r.nextInt(50);
-      potentials[i] = r.nextInt(50, 100);
+
+      double n1 =  Math.pow(r.nextFloat(),5)*100;
+      double n2 = Math.pow(r.nextFloat(),5)*100;
+
+      if (n1 < n2){
+        double temp = n1;
+        n1 = n2;
+        n2 = temp;
+      }
+
+      
+      skills[i] = (int) ((n2*2/3+n1/3)*.75);
+      potentials[i] = (int) (n2/3+n1*2/3);
+
+      
+
     }
 
   }
@@ -77,7 +91,7 @@ public static String[][] getNameList() {
 }
 
 public String toString() {
-  return id + " " + name + " " + (int) skills[0];
+  return id + " " + name + " " + (int) skills[0] + " " + (int) skills[1];
 }
 
 }
