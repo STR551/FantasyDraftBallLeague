@@ -13,7 +13,9 @@ public class Player {
 
   int id;
   String name;
-  
+  int age = 10;
+  int[] skills = new int[2]; // off def 
+  int[] potentials = new int[2];
 
   public static void main(String[] args) {
   }
@@ -22,6 +24,10 @@ public class Player {
     id = idCount;
     idCount += 1;
     name = nameList[0][r.nextInt(nameList[0].length)]+" "+nameList[1][r.nextInt(nameList[0].length)];
+    for (int i = 0; i < skills.length;i++){
+      skills[i] = r.nextInt(50);
+      potentials[i] = r.nextInt(50, 100);
+    }
 
   }
 
@@ -70,5 +76,9 @@ public static String[][] getNameList() {
         return null;
 }
 
+public String toString() {
+  return id + " " + name + " " + (int) skills[0];
+}
 
 }
+
