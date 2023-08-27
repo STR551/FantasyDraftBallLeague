@@ -7,7 +7,7 @@ public class League {
     int numOfTeams = 32;
     int teamSize = 5;
     int freeAgentSize = 500;
-    int winsInSeries = 4;
+    //int winsInSeries = 4;
     String bigTeamString = "NYC CHI LOA HOU PHO PHI JAX COL CHA IND SEA DEN WDC BOS NAS DET POR LSV OKC LOU BAL MIL ABQ KAN ATL OMH VGB MIN NOR WIC HON ANC";
     Team[] teamList = genTeamList();
     Player[] freeAgentList = genFreeAgentList();
@@ -112,11 +112,11 @@ public void playRegSeason(){
 
 public void playPlayoffs(){
 
-    playRound(Arrays.copyOfRange(teamList, 0, teamList.length));
+    playRound(Arrays.copyOfRange(teamList, 0, teamList.length),4);
 
 }
 
-public void playRound(Team[] tl){
+public void playRound(Team[] tl, int seriesLen){
     if (tl.length == 1){
         System.out.println(tl[0].name+" wins it all!!");
         return;
@@ -128,7 +128,7 @@ public void playRound(Team[] tl){
         Team t2 = teamsPlaying[1];
         int t1wins = 0;
         int t2wins = 0;
-        while (t1wins < winsInSeries && t2wins < winsInSeries){
+        while (t1wins < seriesLen && t2wins < seriesLen){
             if ((t1wins+t2wins)%2==0){
                 Game g = new Game(t1,t2);
                 Team winner = g.playGame();
@@ -152,7 +152,7 @@ public void playRound(Team[] tl){
 
         }
         System.out.println(t1.name+" "+t1.rank+" "+t2.name+" "+t2.rank+" "+t1wins+" "+t2wins);
-        if (t1wins == winsInSeries){
+        if (t1wins == seriesLen){
             advancingTeams[i] = t1;
         }
         else{
@@ -161,7 +161,7 @@ public void playRound(Team[] tl){
 
     }
         sortMethodTeamRank(advancingTeams);
-        playRound(advancingTeams);
+        playRound(advancingTeams,seriesLen);
 
 }
 
