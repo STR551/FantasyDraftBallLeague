@@ -99,7 +99,9 @@ public static String[][] getNameList() {
 }
 
 public String toString() {
-  return id + " " + name + " " + (int) skills[0] + " " + (int) skills[1];
+  return id + " " + name + " " + (int) skills[0] + " " + (int) skills[1] + " "
+   + pointsScored + " " + String.format("%.2f",(float)pointsScored/offPlays) + " "
+   + defStops + " " + String.format("%.2f",1-(float)defStops/defPlays);
 }
 
 }

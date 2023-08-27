@@ -104,7 +104,9 @@ public void playRegSeason(){
         System.out.println(teamList[i]);
 
     }
-    System.out.println(leaguePlayerList);
+    for (int i = 0; i < numOfTeams*teamSize; i++){
+        System.out.println(leaguePlayerList[i].toString());
+    }
 
 
     
@@ -112,8 +114,14 @@ public void playRegSeason(){
 
 public void playPlayoffs(){
 
-    playRound(Arrays.copyOfRange(teamList, 0, teamList.length),4);
+    playRound(Arrays.copyOfRange(teamList, 0, teamList.length),3);
+    /*sortMethodTeam();
+    for (int i = 0;  i < numOfTeams; i++){
+        teamList[i].rank = i+1;
+        System.out.println(teamList[i]);
 
+    }
+    */
 }
 
 public void playRound(Team[] tl, int seriesLen){
@@ -122,6 +130,7 @@ public void playRound(Team[] tl, int seriesLen){
         return;
     }
     Team[] advancingTeams = new Team[tl.length/2];
+    System.out.println();
     for (int i = 0; i < tl.length/2; i++){
         Team[] teamsPlaying = new Team[] {tl[i],tl[tl.length-1-i]};
         Team t1 = teamsPlaying[0];
