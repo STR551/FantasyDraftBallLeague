@@ -20,6 +20,7 @@ public Team[] genTeamList() {
         for (int i = 0; i < numOfTeams; i++){
             Team t = new Team(i,splitList[i]);
             teamList[i] = t;
+            t.rank = i+1;
         }
         return teamList;
     }
@@ -56,11 +57,11 @@ public void sortMethod(){
         });
     }
 
-public void sortMethodTeam(){
-    Arrays.sort(teamList, new Comparator<Team>() {
+public void sortMethodTeam(Team[] tl){
+    Arrays.sort(tl, new Comparator<Team>() {
         @Override
         public int compare(Team t1, Team t2) {
-            return Integer.compare(t2.wins, t1.wins);
+            return Float.compare( t2.wins/(float)(t2.wins+t2.losses), t1.wins/(float)(t1.wins+t1.losses));
         }
     
         });
@@ -90,20 +91,20 @@ public String[] getGameList(){
 
 
 public void playRegSeason(){
-    shuffleArray(gameList);
-    for (int i = 0; i < gameList.length; i++){
-        //System.out.println(gameList[i]);
-        String[] splitList = gameList[i].split(" ");
-        shuffleArray(splitList);
-        Game g = new Game(teamList[Integer.parseInt(splitList[0])],teamList[Integer.parseInt(splitList[1])]);
-        g.playGame();
-    }
-    sortMethodTeam();
-    for (int i = 0;  i < numOfTeams; i++){
-        teamList[i].rank = i+1;
-        System.out.println(teamList[i]);
+    Team[] tl = Arrays.copyOfRange(teamList, 0, teamList.length);
+    for (int t = 0; t < 10; t++ ){
+        shuffleArray(tl);
+        playRound(tl, 1, false);
+        tl = Arrays.copyOfRange(teamList, 0, teamList.length);
+        sortMethodTeam(tl);
+        for (int i = 0;  i < numOfTeams; i++){
+            tl[i].rank = i+1;
+            System.out.println(tl[i]);
 
+        }
     }
+    sortMethodTeam(teamList);
+    
     System.out.println(leaguePlayerList);
 
 
@@ -112,11 +113,11 @@ public void playRegSeason(){
 
 public void playPlayoffs(){
 
-    playRound(Arrays.copyOfRange(teamList, 0, teamList.length),4);
+    playRound(Arrays.copyOfRange(teamList, 0, teamList.length),4,true);
 
 }
 
-public void playRound(Team[] tl, int seriesLen){
+public void playRound(Team[] tl, int seriesLen, boolean reseed){
     if (tl.length == 1){
         System.out.println(tl[0].name+" wins it all!!");
         return;
@@ -160,8 +161,11 @@ public void playRound(Team[] tl, int seriesLen){
         }
 
     }
-        sortMethodTeamRank(advancingTeams);
-        playRound(advancingTeams,seriesLen);
+        System.out.println();
+        if (reseed == true){
+            sortMethodTeamRank(advancingTeams);
+        }
+        playRound(advancingTeams,seriesLen,reseed);
 
 }
 
@@ -171,6 +175,16 @@ public void shuffleArray(String[] array) {
     for (int i = array.length - 1; i > 0; i--) {
         int j = rand.nextInt(i + 1);
         String temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+public void shuffleArray(Team[] array) {
+    Random rand = new Random();
+    for (int i = array.length - 1; i > 0; i--) {
+        int j = rand.nextInt(i + 1);
+        Team temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
